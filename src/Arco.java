@@ -40,7 +40,7 @@ public class Arco<T> {
 	}
 
 	public String getDatos() {
-		return "Origen: " + getVerticeOrigen() + " - Destino: " + getVerticeDestino() + " - Valor: " + this.getValor();
+		return "O: " + getVerticeOrigen() + " - D: " + getVerticeDestino() + " - Valor: " + this.getValor();
 	}
 
 }

@@ -26,24 +26,27 @@ public class CSVReader {
                 if (contador_linea > 0) {
                     // fraccionado del csv
                     String[] generos = line.split(cvsSplitBy);
-                    ArrayList<String> test = new ArrayList<>();
 
-                    // recorrido de cada genero del libro
-                    for (String generoBuscado : generos) {
+                    // para recorrer arreglo de la linea de busqueda
+                    int i = 0;
+                    while (i < generos.length) {
 
                         // para omitir primera linea - titulos de csv
-                        if (generoBuscado.equals("Generos")) {
+                        if (generos[0].equals("Generos")) {
                             continue;
                         }
 
-                        if (!test.contains(generoBuscado)) {
-                            test.add(generoBuscado);
+                        grafo.agregarVertice(generos[i]);
+
+                        if (i + 1 < generos.length) {
+                        
+                        grafo.agregarVertice(generos[i + 1]);
+                        grafo.agregarArco(generos[i], generos[i + 1]);
                         }
 
-                        System.out.println(test);
-                    }
+                        i++;
 
-                    System.out.println(" ");
+                    }
 
                 }
 
