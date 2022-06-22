@@ -25,12 +25,20 @@ public class Main {
 
         CSVReader reader = new CSVReader("./dataset1.csv");
         reader.cargarGrafo(grafo_d);
-        Iterator<Arco<String>> it = grafo_d.obtenerArcos();
 
-        while (it.hasNext()) {
-            Arco arco = it.next();
-            System.out.println(arco.getDatos());
-        }
+        // ver arcos
+        // Iterator<Arco<String>> it = grafo_d.obtenerArcos();
+        // while (it.hasNext()) {
+        // Arco arco = it.next();
+        // System.out.println(arco.getDatos());
+        // }
+
+        // ver generos del hashmap
+        // Iterator<String> it2 = grafo_d.obtenerVertices();
+        // while (it2.hasNext()){
+        // String genero = it2.next();
+        // System.out.println(genero);
+        // }
 
     }
 
