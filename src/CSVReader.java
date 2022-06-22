@@ -35,13 +35,17 @@ public class CSVReader {
                         if (generos[0].equals("Generos")) {
                             continue;
                         }
-
+                        // al ser un hash map , no repite generos
                         grafo.agregarVertice(generos[i]);
 
                         if (i + 1 < generos.length) {
-                        
-                        grafo.agregarVertice(generos[i + 1]);
-                        grafo.agregarArco(generos[i], generos[i + 1]);
+
+                            if (grafo.existeArco(generos[i], generos[i + 1])) {
+                                grafo.obtenerArco(generos[i], generos[i + 1]).incrementarValor();
+                            } else {
+                                grafo.agregarVertice(generos[i + 1]);
+                                grafo.agregarArco(generos[i], generos[i + 1]);
+                            }
                         }
 
                         i++;

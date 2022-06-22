@@ -45,7 +45,10 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		if ((this.vertices.containsKey(origen) && (this.vertices.containsKey(destino)))) {
 			if (!existeArco(origen, destino)) {
 				this.vertices.get(origen).agregarArco(destino);
-			}
+			} //else {
+			// 	System.out.println("prueba!!!!");
+			// 	this.obtenerArco(origen, destino).incrementarValor();
+			// }
 		}
 	}
 
@@ -68,7 +71,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		while (itArcos.hasNext()) {
 			Arco<T> actual = itArcos.next();
 
-			if (actual.getVerticeDestino() == destino) {
+			if (actual.getVerticeDestino().equals(destino)) {
 				return true;
 			}
 		}
@@ -82,7 +85,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		while (itArcos.hasNext()) {
 			Arco<T> actual = itArcos.next();
 
-			if (actual.getVerticeDestino() == destino) {
+			if (actual.getVerticeDestino().equals(destino)) {
 				return actual;
 			}
 		}
@@ -154,4 +157,6 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		return this.vertices.get(origen).getArcos();
 	}
 
+
+	
 }

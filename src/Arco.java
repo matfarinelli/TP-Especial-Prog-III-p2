@@ -12,14 +12,15 @@ public class Arco<T> {
 	public Arco(String verticeOrigen, String verticeDestino, int valor) {
 		this.verticeOrigen = verticeOrigen;
 		this.verticeDestino = verticeDestino;
-		this.valor = valor; 
+		this.valor = valor;
 	}
 
 	// uso actual
 	public Arco(String verticeOrigen, String verticeDestino) {
 		this.verticeOrigen = verticeOrigen;
 		this.verticeDestino = verticeDestino;
-		this.valor = 1; // cuando se crea el arco es por se hizo ya una busqueda que vincula esos generos
+		this.valor = 1; // cuando se crea el arco es por se hizo ya una busqueda que vincula esos
+						// generos
 	}
 
 	public String getVerticeOrigen() {
@@ -41,6 +42,17 @@ public class Arco<T> {
 
 	public String getDatos() {
 		return "O: " + getVerticeOrigen() + " - D: " + getVerticeDestino() + " - Valor: " + this.getValor();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		try {
+			Arco aux = (Arco) o;
+			return (this.getVerticeOrigen().toString().equals(aux.getVerticeOrigen().toString())
+					&& this.getVerticeDestino().toString().equals(aux.getVerticeDestino().toString()));
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 }
