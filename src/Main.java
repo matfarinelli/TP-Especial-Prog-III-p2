@@ -23,14 +23,15 @@ public class Main {
         // grafo_d.agregarArco("Comedia", "Aventura");
         // grafo_d.agregarArco("Comedia", "Satira");
 
-        CSVReader reader = new CSVReader("./dataset4.csv");
+        CSVReader reader = new CSVReader("./dataset1.csv");
         reader.cargarGrafo(grafo_d);
 
         // ver arcos
         Iterator<Arco<String>> it = grafo_d.obtenerArcos();
+        //Iterator<Arco<String>> it = grafo_d.obtenerGenerosAfines("periodismo");
         while (it.hasNext()) {
             Arco arco = it.next();
-            System.out.println(arco.getDatos());
+            arco.getDatos();
         }
 
         // System.out.println(grafo_d.obtenerArco("periodismo", "viajes"));

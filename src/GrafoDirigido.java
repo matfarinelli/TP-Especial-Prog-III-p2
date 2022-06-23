@@ -45,10 +45,10 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		if ((this.vertices.containsKey(origen) && (this.vertices.containsKey(destino)))) {
 			if (!existeArco(origen, destino)) {
 				this.vertices.get(origen).agregarArco(destino);
-			} //else {
-			// 	System.out.println("prueba!!!!");
-			// 	this.obtenerArco(origen, destino).incrementarValor();
-			// }
+			} // else {
+				// System.out.println("prueba!!!!");
+				// this.obtenerArco(origen, destino).incrementarValor();
+				// }
 		}
 	}
 
@@ -157,6 +157,11 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		return this.vertices.get(origen).getArcos();
 	}
 
+	public Iterator<Arco<T>> obtenerGenerosAfines(String generoBuscado) {
 
-	
+		Iterator<Arco<T>> generosAfines = this.obtenerArcos(generoBuscado);
+		return generosAfines;
+
+	}
+
 }

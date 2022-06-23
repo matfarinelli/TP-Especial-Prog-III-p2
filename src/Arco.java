@@ -40,9 +40,16 @@ public class Arco<T> {
 		valor++;
 	}
 
-	public String getDatos() {
-		return "O: " + getVerticeOrigen() + " - D: " + getVerticeDestino() + " - Valor: " + this.getValor();
-	}
+	// public String getDatos() {
+	// 	return "O: " + getVerticeOrigen() + " - D: " + getVerticeDestino() + " - Valor: " + this.getValor();
+	// }
+
+	// a -> b [label = 2];
+	public void getDatos() {
+			System.out.print(this.getVerticeOrigen() + " -> " + this.verticeDestino);
+			System.out.print("[ " +  " label = " + this.getValor() + " ];");
+			System.out.println();
+		}
 
 	@Override
 	public boolean equals(Object o) {
