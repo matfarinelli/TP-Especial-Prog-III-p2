@@ -6,33 +6,18 @@ public class Main {
         // pruebas
         GrafoDirigido<String> grafo_d = new GrafoDirigido<String>();
 
-        // grafo_d.agregarVertice("Suspenso");
-        // grafo_d.agregarVertice("Acción");
-        // grafo_d.agregarVertice("Terror");
-        // grafo_d.agregarVertice("Thriller");
-        // grafo_d.agregarVertice("Comedia");
-        // grafo_d.agregarVertice("Satira");
-        // grafo_d.agregarVertice("Romantica");
-        // grafo_d.agregarVertice("Aventura");
-
-        // grafo_d.agregarArco("Suspenso", "Acción");
-        // grafo_d.agregarArco("Acción", "Thriller");
-        // grafo_d.agregarArco("Accion", "Aventura");
-        // grafo_d.agregarArco("Comedia", "Romantica");
-        // grafo_d.agregarArco("Suspenso", "Thriller");
-        // grafo_d.agregarArco("Comedia", "Aventura");
-        // grafo_d.agregarArco("Comedia", "Satira");
-
-        CSVReader reader = new CSVReader("./dataset1.csv");
+        CSVReader reader = new CSVReader("./dataset2.csv");
         reader.cargarGrafo(grafo_d);
 
         // ver arcos
-        Iterator<Arco<String>> it = grafo_d.obtenerArcos();
-        //Iterator<Arco<String>> it = grafo_d.obtenerGenerosAfines("periodismo");
-        while (it.hasNext()) {
-            Arco arco = it.next();
-            arco.getDatos();
-        }
+        // Iterator<Arco<String>> it = grafo_d.obtenerArcos();
+        // Iterator<Arco<String>> it = grafo_d.obtenerGenerosAfines("periodismo");
+        // while (it.hasNext()) {
+        //     Arco arco = it.next();
+        //     arco.getDatos();
+        // }
+
+        System.out.println(grafo_d.obtenerGenerosAfines("periodismo", 2));
 
         // System.out.println(grafo_d.obtenerArco("periodismo", "viajes"));
 

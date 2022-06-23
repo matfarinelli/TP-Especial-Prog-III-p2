@@ -46,7 +46,7 @@ public class Arco<T> {
 
 	// a -> b [label = 2];
 	public void getDatos() {
-			System.out.print(this.getVerticeOrigen() + " -> " + this.verticeDestino);
+			System.out.print(this.getVerticeOrigen() + " -> " + this.getVerticeDestino());
 			System.out.print("[ " +  " label = " + this.getValor() + " ];");
 			System.out.println();
 		}

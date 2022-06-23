@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -134,7 +135,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		return itAdyacentes;
 	}
 
-	// pedir a cada uno de los vertices del grafo, sus arcos
+	// devuelve arcos de todos los vertices del grafo
 	@Override
 	public Iterator<Arco<T>> obtenerArcos() {
 		LinkedList<Arco<T>> listaArcos = new LinkedList<Arco<T>>();
@@ -150,17 +151,27 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		return itArcosTotales;
 	}
 
-	// metodo que llama a un vértice del grafo y le pide sus arcos en forma de
-	// iterador
+	// devuelve arcos de un vertice especifico
 	@Override
 	public Iterator<Arco<T>> obtenerArcos(String origen) {
 		return this.vertices.get(origen).getArcos();
 	}
 
-	public Iterator<Arco<T>> obtenerGenerosAfines(String generoBuscado) {
-
+	// public Iterator<Arco<T>> obtenerGenerosAfines(String generoBuscado, int n) {
+	public HashMap<String,Integer> obtenerGenerosAfines(String generoBuscado, int n) {
 		Iterator<Arco<T>> generosAfines = this.obtenerArcos(generoBuscado);
-		return generosAfines;
+		HashMap<String,Integer> generosList = new HashMap<String,Integer>();
+
+		while (generosAfines.hasNext()) {
+			Arco arco = generosAfines.next();
+			generosList.put(arco.getVerticeDestino(),arco.getValor());
+			// insertar ordenado ?
+		}
+
+		// return generosAfines;
+
+		
+		return generosList;
 
 	}
 

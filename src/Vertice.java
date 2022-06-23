@@ -1,6 +1,7 @@
 import java.util.HashMap;
 import java.util.Iterator;
 
+// a los fines del práctico representa cada Género
 public class Vertice<T> {
 
     private String id;
@@ -19,6 +20,7 @@ public class Vertice<T> {
         Arco<T> arco = new Arco<T>(this.getId(), destino, etiqueta);
         this.arcos.put(destino, arco);
     }
+
     // version sin etiqueta - uso actual
     protected void agregarArco(String destino) {
         Arco<T> arco = new Arco<T>(this.getId(), destino);
