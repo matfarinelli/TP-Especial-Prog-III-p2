@@ -19,6 +19,7 @@ public class CSVReader {
 
             // br.readLine();
 
+            // al ser mayor a cero , eliminamos el título "Géneros"
             int contador_linea = 0;
 
             while ((line = br.readLine()) != null) {
@@ -32,9 +33,10 @@ public class CSVReader {
                     while (i < generos.length) {
 
                         // para omitir primera linea - titulos de csv
-                        if (generos[0].equals("Generos")) {
-                            continue;
-                        }
+                        // if (generos[0].equals("Géneros")) {
+                        // continue;
+                        // }
+
                         // al ser un hash map , no repite generos
                         grafo.agregarVertice(generos[i]);
 

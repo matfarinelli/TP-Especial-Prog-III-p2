@@ -1,7 +1,11 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Timer;
+import java.util.TreeMap;
 
 public class GrafoDirigido<T> implements Grafo<T> {
 
@@ -46,10 +50,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		if ((this.vertices.containsKey(origen) && (this.vertices.containsKey(destino)))) {
 			if (!existeArco(origen, destino)) {
 				this.vertices.get(origen).agregarArco(destino);
-			} // else {
-				// System.out.println("prueba!!!!");
-				// this.obtenerArco(origen, destino).incrementarValor();
-				// }
+			}
 		}
 	}
 
@@ -157,21 +158,44 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		return this.vertices.get(origen).getArcos();
 	}
 
-	// public Iterator<Arco<T>> obtenerGenerosAfines(String generoBuscado, int n) {
-	public HashMap<String,Integer> obtenerGenerosAfines(String generoBuscado, int n) {
-		Iterator<Arco<T>> generosAfines = this.obtenerArcos(generoBuscado);
-		HashMap<String,Integer> generosList = new HashMap<String,Integer>();
+	public ArrayList<String> obtenerGenerosAfinesV2(String generoBuscado, int n) {
 
-		while (generosAfines.hasNext()) {
-			Arco arco = generosAfines.next();
-			generosList.put(arco.getVerticeDestino(),arco.getValor());
-			// insertar ordenado ?
+		ArrayList<Arco> arcos = new ArrayList<>();
+
+		Iterator<Arco<T>> it = this.obtenerArcos(generoBuscado);
+
+		while (it.hasNext()) {
+			Arco arco = it.next();
+			arcos.add(arco);
 		}
 
-		// return generosAfines;
+		Collections.sort(arcos, new Comparator<Arco>() {
+			@Override
+			public int compare(Arco arco1, Arco arco2) {
+				if (arco1.getValor() < arco2.getValor()) {
+					return 1;
+				} else if (arco1.getValor() > arco2.getValor()) {
+					return -1;
+				} else
+					return 1;
+			}
+		});
 
-		
-		return generosList;
+		ArrayList<String> generosAfines = new ArrayList<>();
+
+		int lenght = 0;
+
+		if (n < arcos.size()) {
+			lenght = n;
+		} else {
+			lenght = arcos.size();
+		}
+
+		for (int i = 0; i < lenght; i++) {
+			generosAfines.add(arcos.get(i).getVerticeDestino());
+		}
+
+		return generosAfines;
 
 	}
 

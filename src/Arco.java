@@ -3,8 +3,9 @@
  * Nota: Para poder exponer los arcos fuera del grafo y que nadie los modifique se hizo esta clase inmutable
  * (Inmutable: una vez creado el arco no es posible cambiarle los valores).
  */
-public class Arco<T> {
 
+//public class Arco<T> implements Comparable<Arco<T>> {
+public class Arco<T> {
 	private String verticeOrigen;
 	private String verticeDestino;
 	private int valor;
@@ -41,15 +42,16 @@ public class Arco<T> {
 	}
 
 	// public String getDatos() {
-	// 	return "O: " + getVerticeOrigen() + " - D: " + getVerticeDestino() + " - Valor: " + this.getValor();
+	// return "O: " + getVerticeOrigen() + " - D: " + getVerticeDestino() + " -
+	// Valor: " + this.getValor();
 	// }
 
 	// a -> b [label = 2];
 	public void getDatos() {
-			System.out.print(this.getVerticeOrigen() + " -> " + this.getVerticeDestino());
-			System.out.print("[ " +  " label = " + this.getValor() + " ];");
-			System.out.println();
-		}
+		System.out.print(this.getVerticeOrigen() + " -> " + this.getVerticeDestino());
+		System.out.print("[ " + " label = " + this.getValor() + " ];");
+		System.out.println();
+	}
 
 	@Override
 	public boolean equals(Object o) {
@@ -61,5 +63,16 @@ public class Arco<T> {
 			return false;
 		}
 	}
+
+	// @Override
+	// public int compareTo(Arco<T> o) {
+	// 	// return this.getValor() - o.getValor();
+	// 	if (this.getValor() > o.getValor()) {
+	// 		return 1;
+	// 	} else if (this.getValor() < o.getValor()) {
+	// 		return -1;
+	// 	} else
+	// 		return 0;
+	// }
 
 }
