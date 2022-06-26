@@ -4,8 +4,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Timer;
-import java.util.TreeMap;
 
 public class GrafoDirigido<T> implements Grafo<T> {
 
@@ -158,7 +156,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		return this.vertices.get(origen).getArcos();
 	}
 
-	public ArrayList<String> obtenerGenerosAfinesV2(String generoBuscado, int n) {
+	public ArrayList<String> obtenerGenerosAfines(String generoBuscado, int n) {
 
 		ArrayList<Arco> arcos = new ArrayList<>();
 
@@ -197,6 +195,69 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
 		return generosAfines;
 
+	}
+
+	// servicio 2
+
+	public ArrayList<String> secuenciaGeneros(String generoOrigen) {
+
+		ArrayList<String> solucion = new ArrayList<>();
+		ArrayList<String> generosCandidatos = new ArrayList<>(); // candidatos
+		// // HashMap<String, Boolean> visitados = new HashMap<>();
+		// ArrayList<String> visitados = new ArrayList<>();
+		int sumaArcos = 0;
+
+		Iterator<String> it = this.obtenerVertices(); // todos los generos
+		while (it.hasNext()) {
+			String genero = it.next();
+			generosCandidatos.add(genero);
+		}
+
+		// System.out.println(generosCandidatos);
+
+		// situación que evitar NUll point exception - por si el genero no existe
+		if (generosCandidatos.contains(generoOrigen)) {
+
+			while (!generosCandidatos.isEmpty() && generoOrigen != null) {
+				// visitados.add(generoOrigen);
+				solucion.add(generoOrigen);
+
+				generosCandidatos.remove(generoOrigen);
+
+				// para ver el recorrido entre arco y arco
+				System.out.println("Lista solucion:" + solucion.toString() + " " + solucion.size());
+				System.out.println("Suma de pesos: " + sumaArcos);
+
+				// si devuelve null, se acaba el ciclo
+				Arco arcoAdyMayor = this.seleccionarArcoMayorPeso(generoOrigen, generosCandidatos);
+
+				sumaArcos += arcoAdyMayor.getValor();
+
+				generoOrigen = arcoAdyMayor.getVerticeDestino();
+
+			}
+		}
+
+		return solucion;
+	}
+
+	public Arco seleccionarArcoMayorPeso(String generoOrigen, ArrayList<String> generosCandidatos) {
+		Iterator<Arco<T>> it = this.obtenerArcos(generoOrigen);
+		Arco arcoMayor = new Arco(null, null, 0); // al estar los arcos ordenados, puede devolver el mayor aunque haya
+		// sido recorrido por otro genero anteriormente
+
+		while (it.hasNext()) {
+			Arco arco = it.next();
+
+			if (arco.getValor() > arcoMayor.getValor() && generosCandidatos.contains(arco.getVerticeDestino())) {
+				arcoMayor = arco;
+			}
+		}
+
+		// System.out.println(arcoMayor.getValor() + " " +
+		// arcoMayor.getVerticeDestino());
+
+		return arcoMayor;
 	}
 
 }

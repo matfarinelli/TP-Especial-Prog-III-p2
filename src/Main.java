@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Main {
@@ -6,35 +7,56 @@ public class Main {
         // pruebas
         GrafoDirigido<String> grafo_d = new GrafoDirigido<String>();
 
-        CSVReader reader = new CSVReader("./dataset4.csv");
+        CSVReader reader = new CSVReader("./dataset3.csv");
         reader.cargarGrafo(grafo_d);
 
         // ver arcos
-        // Iterator<Arco<String>> it = grafo_d.obtenerArcos();
-        // // //Iterator<Arco<String>> it = grafo_d.obtenerGenerosAfines("periodismo");
-        // while (it.hasNext()) {
-        //     Arco arco = it.next();
-        //     arco.getDatos();
-        // }
-
-        // comparar tiempos de ejecución
-        //System.out.println(grafo_d.obtenerGenerosAfinesV2("historia", 5));
-        System.out.println(grafo_d.obtenerGenerosAfines("historia", 5));
-
-        // System.out.println(grafo_d.obtenerArco("periodismo", "viajes"));
-
-        // Iterator<Arco<String>> it = grafo_d.obtenerArcos("periodismo");
+        // Iterator<Arco<String>> it = grafo_d.obtenerArcos("historia");
+        // Iterator<Arco<String>> it = grafo_d.obtenerGenerosAfines("periodismo");
         // while (it.hasNext()) {
         // Arco arco = it.next();
         // arco.getDatos();
         // }
 
-        // // ver generos del hashmap
-        // Iterator<String> it2 = grafo_d.obtenerVertices();
-        // while (it2.hasNext()) {
-        // String genero = it2.next();
-        // System.out.println(genero);
-        // }
+        // System.out.println(grafo_d.obtenerArco("periodismo", "viajes"));
+
+        /*
+         * ArrayList<String> generosCandidatos = new ArrayList<>();
+         * Iterator<String> it2 = grafo_d.obtenerVertices();
+         * while (it2.hasNext()) {
+         * String genero = it2.next();
+         * generosCandidatos.add(genero);
+         * }
+         */
+
+        // System.out.println(generosCandidatos);
+
+        /*
+         * Iterator<Arco<String>> it = grafo_d.obtenerArcos();
+         * while (it.hasNext()) {
+         * Arco arco = it.next();
+         * arco.getDatos();
+         * }
+         */
+
+        /*
+         * ArrayList<String> generosTotales = new ArrayList<>();
+         * Iterator<String> it2 = grafo_d.obtenerVertices();
+         * while (it2.hasNext()) {
+         * String genero = it2.next();
+         * generosTotales.add(genero);
+         * }
+         * 
+         * for (String genero : generosTotales) {
+         * System.out.println("Generos afines a " + genero + " " +
+         * grafo_d.obtenerGenerosAfines(genero, 3));
+         * }
+         */
+
+        // ver! genera null pointer
+        // grafo_d.secuenciaGeneros("poesía");
+
+        grafo_d.secuenciaGeneros("policial");
 
     }
 

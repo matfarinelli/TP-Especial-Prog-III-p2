@@ -4,7 +4,6 @@
  * (Inmutable: una vez creado el arco no es posible cambiarle los valores).
  */
 
-//public class Arco<T> implements Comparable<Arco<T>> {
 public class Arco<T> {
 	private String verticeOrigen;
 	private String verticeDestino;
@@ -53,6 +52,12 @@ public class Arco<T> {
 		System.out.println();
 	}
 
+	// para control en excel
+	// public void getDatosControl() {
+	// 	System.out.print(this.getVerticeOrigen() + "," + this.verticeDestino + "," + this.getValor());
+	// 	System.out.println();
+	// }
+
 	@Override
 	public boolean equals(Object o) {
 		try {
@@ -63,16 +68,5 @@ public class Arco<T> {
 			return false;
 		}
 	}
-
-	// @Override
-	// public int compareTo(Arco<T> o) {
-	// 	// return this.getValor() - o.getValor();
-	// 	if (this.getValor() > o.getValor()) {
-	// 		return 1;
-	// 	} else if (this.getValor() < o.getValor()) {
-	// 		return -1;
-	// 	} else
-	// 		return 0;
-	// }
 
 }
