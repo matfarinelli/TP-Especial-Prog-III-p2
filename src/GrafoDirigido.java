@@ -243,8 +243,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
 	public Arco seleccionarArcoMayorPeso(String generoOrigen, ArrayList<String> generosCandidatos) {
 		Iterator<Arco<T>> it = this.obtenerArcos(generoOrigen);
-		Arco arcoMayor = new Arco(null, null, 0); // al estar los arcos ordenados, puede devolver el mayor aunque haya
-		// sido recorrido por otro genero anteriormente
+		Arco arcoMayor = new Arco(null, null, 0);
 
 		while (it.hasNext()) {
 			Arco arco = it.next();
@@ -259,5 +258,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
 		return arcoMayor;
 	}
+
+	// servicio 3
 
 }
