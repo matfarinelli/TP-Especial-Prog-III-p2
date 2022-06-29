@@ -12,13 +12,13 @@ public class Main {
         reader.cargarGrafo(grafo_d);
 
         // ver arcos
-        Iterator<Arco<T>> it = grafo_d.obtenerArcos("deportes");
-        // // Iterator<Arco<String>> it = grafo_d.obtenerArcos("historia");
+        // Iterator<String> itGeneros = grafo_d.obtenerVertices();
+        // Iterator<Arco> it = grafo_d.obtenerTodoslosArcos();
         // Iterator<Arco<String>> it = grafo_d.obtenerGenerosAfines("periodismo");
-        while (it.hasNext()) {
-            Arco arco = it.next();
-            arco.getDatos();
-        }
+        // while (it.hasNext()) {
+        //     Arco arco = it.next();
+        //     arco.getDatos();
+        // }
 
         // servicio 1
 
@@ -30,9 +30,11 @@ public class Main {
 
         // servicio 3
 
-        // GrafoDirigido grafoSolucion = new GrafoDirigido<>();
+        GrafoDirigido grafoSolucion = new GrafoDirigido<>();
 
-        // grafoSolucion = grafo_d.cicloGenerosAfines("deportes");
+        grafoSolucion = grafo_d.cicloGenerosAfines("viajes");
+
+        // System.out.println(grafo_d.cantidadArcos());
 
     }
 

@@ -151,7 +151,22 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		return itArcosTotales;
 	}
 
-	// devuelve arcos de un vertice especifico pidiendole a cada genero (vertice), sus arcos
+	public Iterator<Arco> obtenerTodoslosArcos() {
+		ArrayList<Arco> listaArcos = new ArrayList<Arco>();
+
+		for (String genero : this.vertices.keySet()) {
+			Iterator<Arco<T>> itArcos = this.obtenerArcos(genero);
+			while (itArcos.hasNext()) {
+				listaArcos.add(itArcos.next());
+			}
+		}
+
+		return listaArcos.iterator();
+
+	}
+
+	// devuelve arcos de un vertice especifico pidiendole a cada genero (vertice),
+	// sus arcos
 	@Override
 	public Iterator<Arco<T>> obtenerArcos(String origen) {
 		return this.vertices.get(origen).getArcos();
@@ -168,6 +183,11 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
 		return arcos;
 	}
+
+	/*
+	 * SERVICIO Nª 1
+	 * 
+	 */
 
 	public ArrayList<String> obtenerGenerosAfines(String generoBuscado, int n) {
 		ArrayList<Arco> arcos = new ArrayList<>();
@@ -209,7 +229,10 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
 	}
 
-	// servicio 2
+	/*
+	 * SERVICIO Nª 2
+	 * 
+	 */
 
 	public ArrayList<String> obtenerMayorSecuenciaGeneros(String generoOrigen) {
 
@@ -237,8 +260,9 @@ public class GrafoDirigido<T> implements Grafo<T> {
 				generosCandidatos.remove(generoOrigen);
 
 				// para ver el recorrido entre arco y arco
-				System.out.println("Lista solucion:" + solucion.toString() + " " + solucion.size());
-				System.out.println("Suma de pesos: " + sumaArcos);
+				// System.out.println("Lista solucion:" + solucion.toString() + " " +
+				// solucion.size());
+				// System.out.println("Suma de pesos: " + sumaArcos);
 
 				// si devuelve null, se acaba el ciclo
 				Arco arcoAdyMayor = this.seleccionarArcoMayorPeso(generoOrigen, generosCandidatos);
@@ -272,8 +296,11 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		return arcoMayor;
 	}
 
-	// servicio 3
-	// por backtracking 
+	/*
+	 * SERVICIO Nª 3
+	 * 
+	 */
+
 	// public void cicloGenerosAfines(String origen_destino, Grafo solucion) {
 	public GrafoDirigido<T> cicloGenerosAfines(String origen_destino) {
 		GrafoDirigido<T> solucion = new GrafoDirigido<T>();
@@ -282,14 +309,27 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		solucion.agregarVertice(origen_destino);
 
 		String actual = "Inicio";
+
 		this.backtracking(origen_destino, actual, solucion, visitados);
 
 		return solucion;
 	}
 
-	private void backtracking(String origen_destino, String actual, GrafoDirigido<T> solucion, HashSet<String> visitados) {
+	private void backtracking(String origen_destino, String actual, GrafoDirigido<T> solucion,
+			HashSet<String> visitados) {
 
 		if (actual.equals(origen_destino)) { // situación corte, hay un ciclo
+			// System.out.println("CICLO ENCONTRADO! por " + actual);
+			// System.out.println("Generos visitados: " + visitados);
+			System.out.println("-");
+
+			// solo para control! - borrar!
+			Iterator<Arco> it = solucion.obtenerTodoslosArcos();
+			while (it.hasNext()) {
+				Arco arco = it.next();
+				arco.getDatos();
+			}
+
 			return;
 		} else {
 
@@ -297,32 +337,29 @@ public class GrafoDirigido<T> implements Grafo<T> {
 			if (actual.equals("Inicio")) {
 				actual = origen_destino;
 			}
-
+			// Obtengo array de arcos del generoRecibido
 			ArrayList<Arco<T>> arcosGenero = this.obtenerArcosArray(actual);
-			ArrayList<String> generosAdyacentes = new ArrayList<>();
+			// ArrayList<String> generosAdyacentes = new ArrayList<>();
 
+			// chequeo solo de revisar arcos no visitados
 			for (Arco arco : arcosGenero) {
 				// si no visite los arcos de ese genero actual u origen
 				if (!visitados.contains(arco.getVerticeDestino())) {
-					generosAdyacentes.add(arco.getVerticeDestino());
+					
+					visitados.add(arco.getVerticeDestino());
+					solucion.agregarVertice(arco.getVerticeDestino());
+					solucion.agregarArco(actual, arco.getVerticeDestino());
+
+					// System.out.println("ACTUAL: " + actual + " / " + visitados.toString());
+					// System.out.println("-");
+
+					this.backtracking(origen_destino, arco.getVerticeDestino(), solucion, visitados);
+
+					solucion.borrarVertice(arco.getVerticeDestino());
+					solucion.borrarArco(actual, arco.getVerticeDestino());
+					visitados.remove(arco.getVerticeDestino());
+
 				}
-				// System.out.println(arco.getVerticeOrigen() + " " + arco.getVerticeDestino() +
-				// " " + arco.getValor());
-			}
-
-			for (String generoAdy : generosAdyacentes) {
-				solucion.agregarVertice(generoAdy);
-				solucion.agregarArco(actual, generoAdy);
-				visitados.add(generoAdy);
-
-				System.out.println("genero actual " + actual + "- adyacente : " + generoAdy);
-				// System.out.println(visitados.toString());
-
-				this.backtracking(origen_destino, generoAdy, solucion, visitados);
-
-				solucion.borrarVertice(generoAdy);
-				solucion.borrarArco(actual, generoAdy);
-				visitados.remove(generoAdy);
 			}
 			return;
 		}
