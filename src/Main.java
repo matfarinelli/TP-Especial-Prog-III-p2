@@ -12,65 +12,27 @@ public class Main {
         reader.cargarGrafo(grafo_d);
 
         // ver arcos
-        // Iterator<Arco<String>> it = grafo_d.obtenerArcos("historia");
+        Iterator<Arco<T>> it = grafo_d.obtenerArcos("deportes");
+        // // Iterator<Arco<String>> it = grafo_d.obtenerArcos("historia");
         // Iterator<Arco<String>> it = grafo_d.obtenerGenerosAfines("periodismo");
-        // while (it.hasNext()) {
-        // Arco arco = it.next();
-        // arco.getDatos();
-        // }
-
-        // System.out.println(grafo_d.obtenerArco("periodismo", "viajes"));
-
-        /*
-         * ArrayList<String> generosCandidatos = new ArrayList<>();
-         * Iterator<String> it2 = grafo_d.obtenerVertices();
-         * while (it2.hasNext()) {
-         * String genero = it2.next();
-         * generosCandidatos.add(genero);
-         * }
-         */
-
-        // System.out.println(generosCandidatos);
-
-        /*
-         * Iterator<Arco<String>> it = grafo_d.obtenerArcos();
-         * while (it.hasNext()) {
-         * Arco arco = it.next();
-         * arco.getDatos();
-         * }
-         */
-
-        // ArrayList<String> generosTotales = new ArrayList<>();
-        // Iterator<String> it2 = grafo_d.obtenerVertices();
-        // while (it2.hasNext()) {
-        // String genero = it2.next();
-        // generosTotales.add(genero);
-        // }
-
-        // for (String genero : generosTotales) {
-        // System.out.println("Generos afines a " + genero + " " +
-        // grafo_d.obtenerGenerosAfines(genero, 3));
-        // }
-
-        // ver! genera null pointer
-        // grafo_d.secuenciaGeneros("poesía");
-
-        // grafo_d.secuenciaGeneros("policial");
-
-        // grafo_d.obtenerGenerosCiclo("poesía");
-
-        GrafoDirigido grafoSolucion = new GrafoDirigido<>();
-
-        grafoSolucion.cicloGenerosAfines("poesía", grafoSolucion);
-
-        ArrayList<String> generosTotales = new ArrayList<>();
-        Iterator<String> it2 = grafo_d.obtenerVertices();
-        while (it2.hasNext()) {
-            String genero = it2.next();
-            generosTotales.add(genero);
+        while (it.hasNext()) {
+            Arco arco = it.next();
+            arco.getDatos();
         }
 
-        System.out.println(generosTotales);
+        // servicio 1
+
+        // System.out.println(grafo_d.obtenerGenerosAfines("deportes", 6));
+
+        // servicio 2
+
+        // grafo_d.obtenerMayorSecuenciaGeneros("deportes");
+
+        // servicio 3
+
+        // GrafoDirigido grafoSolucion = new GrafoDirigido<>();
+
+        // grafoSolucion = grafo_d.cicloGenerosAfines("deportes");
 
     }
 
