@@ -9,7 +9,7 @@ public interface Grafo<T> {
 	public void borrarVertice(String verticeId);
 
 	// Agrega un arco con una etiqueta, que conecta el verticeId1 con el verticeId2
-	public void agregarArco(String verticeId1, String verticeId2, int etiqueta);
+	//public void agregarArco(String verticeId1, String verticeId2, int etiqueta);
 
 	// Agrega un arco sin etiqueta, que conecta el verticeId1 con el verticeId2
 	public void agregarArco(String verticeId1, String verticeId2);
@@ -38,10 +38,10 @@ public interface Grafo<T> {
 
 	// Obtiene un iterador que me permite recorrer todos los vertices adyacentes a
 	// verticeId
-	public Iterator<String> obtenerAdyacentes(String verticeId);
+	//public Iterator<String> obtenerAdyacentes(String verticeId);
 
 	// Obtiene un iterador que me permite recorrer todos los arcos del grafo
-	public Iterator<Arco<T>> obtenerArcos();
+	//public Iterator<Arco<T>> obtenerArcos();
 
 	// Obtiene un iterador que me permite recorrer todos los arcos que parten desde
 	// verticeId

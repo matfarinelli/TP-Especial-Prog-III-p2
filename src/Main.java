@@ -11,26 +11,13 @@ public class Main {
         CSVReader reader = new CSVReader("./dataset1.csv");
         reader.cargarGrafo(grafo_d);
 
-        // ver arcos
-        // Iterator<String> itGeneros = grafo_d.obtenerVertices();
-        // // Iterator<Arco> it = grafo_d.obtenerTodoslosArcos();
-        // // Iterator<Arco<String>> it = grafo_d.obtenerGenerosAfines("periodismo");
-        // while (itGeneros.hasNext()) {
-        //     String genero = itGeneros.next();
-        //     System.out.println(genero.toString());
-        // }
-        // while (it.hasNext()) {
-        //     Arco arco = it.next();
-        //     arco.getDatos();
-        // }
-
         // servicio 1
 
-        // System.out.println(grafo_d.obtenerGenerosAfines("deportes", 6));
+        // System.out.println(grafo_d.obtenerGenerosAfines("viajes", 3));
 
         // servicio 2
 
-        // grafo_d.obtenerMayorSecuenciaGeneros("deportes");
+        // System.out.println(grafo_d.obtenerMayorSecuenciaGeneros("humor"));
 
         // servicio 3
 
@@ -39,6 +26,26 @@ public class Main {
         grafoSolucion = grafo_d.cicloGenerosAfines("viajes");
 
         // System.out.println(grafo_d.cantidadArcos());
+
+        // System.out.println(grafo_d.existeArco("viajes", "marketing"));
+        // System.out.println(grafo_d.existeArco("historia", "terror"));
+
+        // ver arcos
+
+        // Iterator<Arco> it = grafo_d.obtenerTodoslosArcos();
+        // // Iterator<Arco<String>> it = grafo_d.obtenerGenerosAfines("periodismo");
+        // while (it.hasNext()) {
+        // Arco arco = it.next();
+        // arco.getDatos();
+        // }
+
+        // ver generos
+
+        // Iterator<String> itGeneros = grafo_d.obtenerVertices();
+        // while (itGeneros.hasNext()) {
+        // String genero = itGeneros.next();
+        // System.out.println(genero.toString());
+        // }
 
     }
 

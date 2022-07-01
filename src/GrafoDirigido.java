@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
+import timer.Timer;
 
 public class GrafoDirigido<T> implements Grafo<T> {
 
@@ -16,31 +16,22 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
 	@Override
 	public void agregarVertice(String verticeId) {
-		//if (!this.vertices.containsKey(verticeId)) {
+		if (!this.vertices.containsKey(verticeId)) { // O(1)
 			this.vertices.put(verticeId, new Vertice<T>(verticeId));
-		//}
-	}
-
-	@Override
-	public void borrarVertice(String verticeId) {
-		if (this.vertices.containsKey(verticeId)) {
-
-			for (String vertices : this.vertices.keySet()) {
-				if (existeArco(vertices, verticeId)) {
-					borrarArco(vertices, verticeId);
-				}
-			}
-
-			this.vertices.remove(verticeId);
 		}
 	}
 
 	@Override
-	public void agregarArco(String origen, String destino, int etiqueta) {
-		if ((this.vertices.containsKey(origen) && (this.vertices.containsKey(destino)))) {
-			if (!existeArco(origen, destino)) {
-				this.vertices.get(origen).agregarArco(destino, etiqueta);
+	public void borrarVertice(String verticeId) {
+		if (this.vertices.containsKey(verticeId)) { // O(1)
+
+			for (String vertices : this.vertices.keySet()) {
+				if (existeArco(vertices, verticeId)) { // O(1)
+					borrarArco(vertices, verticeId);// O(1)
+				}
 			}
+
+			this.vertices.remove(verticeId); // O(1)
 		}
 	}
 
@@ -67,30 +58,12 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
 	@Override
 	public boolean existeArco(String origen, String destino) {
-		Iterator<Arco<T>> itArcos = obtenerArcos(origen);
-
-		while (itArcos.hasNext()) {
-			Arco<T> actual = itArcos.next();
-
-			if (actual.getVerticeDestino().equals(destino)) {
-				return true;
-			}
-		}
-		return false;
+		return vertices.get(origen).existeArco(destino); // O(1)
 	}
 
 	@Override
 	public Arco<T> obtenerArco(String origen, String destino) {
-		Iterator<Arco<T>> itArcos = obtenerArcos(origen);
-
-		while (itArcos.hasNext()) {
-			Arco<T> actual = itArcos.next();
-
-			if (actual.getVerticeDestino().equals(destino)) {
-				return actual;
-			}
-		}
-		return null;
+		return this.vertices.get(origen).obtenerArco(destino);
 	}
 
 	@Override
@@ -100,16 +73,13 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
 	@Override
 	public int cantidadArcos() {
-		Iterator<Arco<T>> itArcos = this.obtenerArcos();
+		Iterator<Arco> itArcos = this.obtenerTodoslosArcos();
 		int cantidadArcos = 0;
 
 		while (itArcos.hasNext()) {
 			if (itArcos.next() != null) {
 				cantidadArcos++;
 			}
-
-			// itArcos.next();
-			// cantidadArcos++;
 		}
 
 		return cantidadArcos;
@@ -123,34 +93,13 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		return itVertices;
 	}
 
-	@Override
+	// @Override
 	public Iterator<String> obtenerAdyacentes(String origen) {
-		LinkedList<String> listaAdyacentes = new LinkedList<String>();
-		Iterator<Arco<T>> itArcos = this.obtenerArcos(origen);
-
-		while (itArcos.hasNext()) {
-			listaAdyacentes.add(itArcos.next().getVerticeDestino());
-		}
-		Iterator<String> itAdyacentes = listaAdyacentes.iterator();
-		return itAdyacentes;
+		Iterator<String> listaAdyacentes = this.vertices.get(origen).obtenerAdyacentes();
+		return listaAdyacentes;
 	}
 
-	// devuelve arcos de todos los vertices del grafo
-	@Override
-	public Iterator<Arco<T>> obtenerArcos() {
-		LinkedList<Arco<T>> listaArcos = new LinkedList<Arco<T>>();
-
-		for (String id : this.vertices.keySet()) {
-			Iterator<Arco<T>> itArcos = this.obtenerArcos(id);
-			while (itArcos.hasNext()) {
-				listaArcos.add(itArcos.next());
-			}
-		}
-
-		Iterator<Arco<T>> itArcosTotales = listaArcos.iterator();
-		return itArcosTotales;
-	}
-
+	// obtener todos los arcos del grafo
 	public Iterator<Arco> obtenerTodoslosArcos() {
 		ArrayList<Arco> listaArcos = new ArrayList<Arco>();
 
@@ -173,13 +122,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	}
 
 	public ArrayList<Arco<T>> obtenerArcosArray(String origen) {
-		ArrayList<Arco<T>> arcos = new ArrayList<>();
-
-		Iterator<Arco<T>> it = this.obtenerArcos(origen);
-		while (it.hasNext()) {
-			Arco arco = it.next();
-			arcos.add(arco);
-		}
+		ArrayList<Arco<T>> arcos = this.vertices.get(origen).getArcosArray();
 
 		return arcos;
 	}
@@ -192,8 +135,10 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	public ArrayList<String> obtenerGenerosAfines(String generoBuscado, int n) {
 		ArrayList<Arco> arcos = new ArrayList<>();
 
-		Iterator<Arco<T>> it = this.obtenerArcos(generoBuscado);
+		System.out.println("Tiempo: ");
+		Timer timer = new Timer();
 
+		Iterator<Arco<T>> it = this.obtenerArcos(generoBuscado);
 		while (it.hasNext()) {
 			Arco arco = it.next();
 			arcos.add(arco);
@@ -225,6 +170,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 			generosAfines.add(arcos.get(i).getVerticeDestino());
 		}
 
+		System.out.println(timer.stop());
 		return generosAfines;
 
 	}
@@ -238,9 +184,12 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
 		ArrayList<String> solucion = new ArrayList<>();
 		ArrayList<String> generosCandidatos = new ArrayList<>(); // candidatos
-		// // HashMap<String, Boolean> visitados = new HashMap<>();
-		// ArrayList<String> visitados = new ArrayList<>();
+
 		int sumaArcos = 0;
+
+		Timer timer = new Timer();
+		System.out.println("Tiempo: ");
+		timer.start();
 
 		Iterator<String> it = this.obtenerVertices(); // todos los generos
 		while (it.hasNext()) {
@@ -248,9 +197,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 			generosCandidatos.add(genero);
 		}
 
-		// System.out.println(generosCandidatos);
-
-		// situación que evitar NUll point exception - por si el genero no existe
+		// situación que evita NUll point exception - por si el genero no existe
 		if (generosCandidatos.contains(generoOrigen)) {
 
 			while (!generosCandidatos.isEmpty() && generoOrigen != null) {
@@ -274,6 +221,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 			}
 		}
 
+		System.out.println(timer.stop());
 		return solucion;
 	}
 
@@ -290,8 +238,8 @@ public class GrafoDirigido<T> implements Grafo<T> {
 			}
 		}
 
-		// System.out.println(arcoMayor.getValor() + " " +
-		// arcoMayor.getVerticeDestino());
+		// System.out.println("Origen " + generoOrigen + " / arco mayor: " +
+		// arcoMayor.getVerticeDestino() + " = " + arcoMayor.getValor());
 
 		return arcoMayor;
 	}
@@ -301,7 +249,6 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	 * 
 	 */
 
-	// public void cicloGenerosAfines(String origen_destino, Grafo solucion) {
 	public GrafoDirigido<T> cicloGenerosAfines(String origen_destino) {
 		GrafoDirigido<T> solucion = new GrafoDirigido<T>();
 		HashSet<String> visitados = new HashSet<>(); // me permite que no se repitan los generos visitados
@@ -320,7 +267,7 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
 		if (actual.equals(origen_destino)) { // situación corte, hay un ciclo
 			// System.out.println("CICLO ENCONTRADO! por " + actual);
-			// System.out.println("Generos visitados: " + visitados);
+			// // System.out.println("Generos visitados: " + visitados);
 			System.out.println("-");
 
 			// solo para control! - borrar!
@@ -348,8 +295,6 @@ public class GrafoDirigido<T> implements Grafo<T> {
 					solucion.agregarVertice(arco.getVerticeDestino());
 					solucion.agregarArco(actual, arco.getVerticeDestino());
 
-					// System.out.println("ACTUAL: " + actual + " / " + visitados.toString());
-					// System.out.println("-");
 					this.backtracking(origen_destino, arco.getVerticeDestino(), solucion, visitados);
 
 					solucion.borrarVertice(arco.getVerticeDestino());
