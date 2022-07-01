@@ -13,8 +13,12 @@ public class Main {
 
         // ver arcos
         // Iterator<String> itGeneros = grafo_d.obtenerVertices();
-        // Iterator<Arco> it = grafo_d.obtenerTodoslosArcos();
-        // Iterator<Arco<String>> it = grafo_d.obtenerGenerosAfines("periodismo");
+        // // Iterator<Arco> it = grafo_d.obtenerTodoslosArcos();
+        // // Iterator<Arco<String>> it = grafo_d.obtenerGenerosAfines("periodismo");
+        // while (itGeneros.hasNext()) {
+        //     String genero = itGeneros.next();
+        //     System.out.println(genero.toString());
+        // }
         // while (it.hasNext()) {
         //     Arco arco = it.next();
         //     arco.getDatos();

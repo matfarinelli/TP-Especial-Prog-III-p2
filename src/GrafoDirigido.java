@@ -16,9 +16,9 @@ public class GrafoDirigido<T> implements Grafo<T> {
 
 	@Override
 	public void agregarVertice(String verticeId) {
-		if (!this.vertices.containsKey(verticeId)) {
+		//if (!this.vertices.containsKey(verticeId)) {
 			this.vertices.put(verticeId, new Vertice<T>(verticeId));
-		}
+		//}
 	}
 
 	@Override
@@ -329,41 +329,35 @@ public class GrafoDirigido<T> implements Grafo<T> {
 				Arco arco = it.next();
 				arco.getDatos();
 			}
-
 			return;
-		} else {
 
+		} else {
 			// situación inicial, para evitar el if de corte
 			if (actual.equals("Inicio")) {
 				actual = origen_destino;
 			}
 			// Obtengo array de arcos del generoRecibido
 			ArrayList<Arco<T>> arcosGenero = this.obtenerArcosArray(actual);
-			// ArrayList<String> generosAdyacentes = new ArrayList<>();
 
 			// chequeo solo de revisar arcos no visitados
 			for (Arco arco : arcosGenero) {
 				// si no visite los arcos de ese genero actual u origen
 				if (!visitados.contains(arco.getVerticeDestino())) {
-					
+
 					visitados.add(arco.getVerticeDestino());
 					solucion.agregarVertice(arco.getVerticeDestino());
 					solucion.agregarArco(actual, arco.getVerticeDestino());
 
 					// System.out.println("ACTUAL: " + actual + " / " + visitados.toString());
 					// System.out.println("-");
-
 					this.backtracking(origen_destino, arco.getVerticeDestino(), solucion, visitados);
 
 					solucion.borrarVertice(arco.getVerticeDestino());
 					solucion.borrarArco(actual, arco.getVerticeDestino());
 					visitados.remove(arco.getVerticeDestino());
-
 				}
 			}
 			return;
 		}
-
 	}
-
 }
